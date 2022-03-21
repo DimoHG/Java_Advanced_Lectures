@@ -1,6 +1,6 @@
 package rpg_lab;
 
-public class Dummy {
+public class Dummy implements Target{
 
     private int health;
     private int experience;

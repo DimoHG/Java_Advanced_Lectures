@@ -1,6 +1,7 @@
 package rpg_lab;
 
-public class Axe {
+public class Axe implements Weapon{
+    public static final int DURABILITY_LOSS = 1;
 
     private int attackPoints;
     private int durabilityPoints;
@@ -18,12 +19,12 @@ public class Axe {
         return this.durabilityPoints;
     }
 
-    public void attack(Dummy target) {
+    public void attack(Target target) {
         if (this.durabilityPoints <= 0) {
             throw new IllegalStateException("Axe is broken.");
         }
 
         target.takeAttack(this.attackPoints);
-        this.durabilityPoints -= 1;
+        this.durabilityPoints -= DURABILITY_LOSS;
     }
 }

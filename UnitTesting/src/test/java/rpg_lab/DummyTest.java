@@ -1,6 +1,7 @@
 package rpg_lab;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.rmi.server.ExportException;
@@ -8,38 +9,39 @@ import java.rmi.server.ExportException;
 import static org.junit.Assert.*;
 
 public class DummyTest {
+    private final static int DUMMY_START_HEALTH = 100;
+    private final static int DUMMY_EXPERIENCE = 100;
+    private final static int DEAD_DUMMY_HEALTH = 0;
+    private final static int ATTACK_POINTS = 20;
+
+    private Dummy dummy;
+    private Dummy deadDummy;
+
+    @Before
+    public void setup(){
+        dummy = new Dummy(DUMMY_START_HEALTH, DUMMY_EXPERIENCE);
+        deadDummy = new Dummy(DEAD_DUMMY_HEALTH, DUMMY_EXPERIENCE);
+    }
 
     @Test
     public void testAttackedDummyLosesHealth(){
-        //Arrange
-        Dummy dummy = new Dummy(100, 10);
-        //Act
-        dummy.takeAttack(20);
-        //Assert
-        Assert.assertEquals(80, dummy.getHealth());
+        dummy.takeAttack(ATTACK_POINTS);
+        Assert.assertEquals(DUMMY_START_HEALTH - ATTACK_POINTS, dummy.getHealth());
     }
 
     @Test(expected = IllegalStateException.class)
     public void testAttackDeadDummyThrowsException(){
-        Dummy dummy = new Dummy(0, 10);
-        dummy.takeAttack(100);
+        deadDummy.takeAttack(ATTACK_POINTS);
     }
 
     @Test
     public void testDeadDummyGivesXP(){
-        //Arrange
-        Dummy dummy = new Dummy(0, 10);
-        //Act
-        int exp = dummy.giveExperience();
-        //Assert
-        Assert.assertEquals(10, exp);
+        int exp = deadDummy.giveExperience();
+        Assert.assertEquals(DUMMY_EXPERIENCE, exp);
     }
 
     @Test(expected = IllegalStateException.class)
     public void testAliveDummyDoesntGiveXP(){
-        //Arrange
-        Dummy dummy = new Dummy(100, 10);
-        //Act
         dummy.giveExperience();
     }
 
