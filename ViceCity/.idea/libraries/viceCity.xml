@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="viceCity">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/java/viceCity.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
